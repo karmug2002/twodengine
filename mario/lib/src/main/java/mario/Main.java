@@ -1,5 +1,6 @@
 package mario;
 
+import renderer.Shader;
 import twodengine.Window;
 
 public class Main

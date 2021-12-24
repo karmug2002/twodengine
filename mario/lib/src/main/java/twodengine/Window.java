@@ -29,6 +29,8 @@ public class Window
 		this.width  = 768;
 		this.hieght = 1280;
 		this.width  = 720;
+		//this.hieght = 1920;
+		//this.width  = 1080;
 		this.title  = "Mario";
 		this.r = 1;
 		this.g = 1;
@@ -168,28 +170,4 @@ public class Window
 			
 		}
 	}
-
 }
-/*	private boolean fadeToBlack;
- * if(fadeToBlack)
-			{
-				r = Math.max(r-0.01f, 0);
-				g = Math.max(g-0.01f, 0);
-				b = Math.max(b-0.01f, 0);
-				a = Math.max(a-0.01f, 0);
-			}
-			
-			if(KeyListener.isKeyPressed(GLFW_KEY_SPACE))
-			{
-				fadeToBlack = true;
-			}
-			
-			if(KeyListener.isKeyPressed(GLFW_KEY_R))
-			{
-				r = 1;
-				g = 0;
-				b = 1;
-				a = 1;
-				fadeToBlack = false;
-			}
-		*/
