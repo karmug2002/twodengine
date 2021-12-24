@@ -27,6 +27,8 @@ public class Window
 	{
 		this.hieght = 1366;
 		this.width  = 768;
+		this.hieght = 1280;
+		this.width  = 720;
 		this.title  = "Mario";
 		this.r = 1;
 		this.g = 1;
@@ -40,7 +42,7 @@ public class Window
 		{
 			case 0:
 				currentScene = new LevelEditorScene();
-				//currentScene.init();
+				currentScene.init();
 				break;
 			case 1:
 				currentScene = new LevelScene();
