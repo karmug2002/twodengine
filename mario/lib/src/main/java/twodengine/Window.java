@@ -14,7 +14,7 @@ import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;;
 
 public class Window
 {
-	private int width,hieght;
+	private int width,height;
 	private String title;
 	private float r,g,b,a;
 	
@@ -25,10 +25,10 @@ public class Window
 	
 	private Window()
 	{
-		this.width  = 1366;
-		this.hieght = 768;
-		//this.hieght = 1280;
-		//this.width  = 720;
+		//this.width  = 1366;
+		//his.hieght = 768;
+		this.width = 1280;
+		this.height  = 720;
 		//this.hieght = 1920;
 		//this.width  = 1080;
 		this.title  = "Mario";
@@ -113,7 +113,7 @@ public class Window
 		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 		
 		// Create the window
-		glfwWindow = glfwCreateWindow(this.width,this.hieght,this.title,NULL,NULL);
+		glfwWindow = glfwCreateWindow(this.width,this.height,this.title,NULL,NULL);
 		
 		if(glfwWindow == NULL)
 		{
