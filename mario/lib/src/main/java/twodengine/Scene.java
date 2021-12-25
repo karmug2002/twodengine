@@ -1,11 +1,17 @@
 package twodengine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Scene
 {
 	protected Camera camera;
+	private boolean isRunning = false;
+	protected List<GameObject> gameObjects;
+	
 	public Scene()
 	{
-		
+		this.gameObjects = new ArrayList<>();
 	}
 	
 	public static void printCurrentFps(float dt)
@@ -17,8 +23,29 @@ public abstract class Scene
 
 	public void init()
 	{
-		// TODO Auto-generated method stub
 		
+	}
+	
+	public void start()
+	{
+		for(GameObject go : gameObjects)
+		{
+			go.start();
+		}
+		isRunning = true;
+	}
+	
+	public void addGameObjectToScene(GameObject go)
+	{
+		if(!isRunning)
+		{
+			gameObjects.add(go);
+		}
+		else 
+		{
+			gameObjects.add(go);
+			go.start();
+		}
 	}
 
 }
