@@ -25,10 +25,10 @@ public class Window
 	
 	private Window()
 	{
-		this.hieght = 1366;
-		this.width  = 768;
-		this.hieght = 1280;
-		this.width  = 720;
+		this.width  = 1366;
+		this.hieght = 768;
+		//this.hieght = 1280;
+		//this.width  = 720;
 		//this.hieght = 1920;
 		//this.width  = 1080;
 		this.title  = "Mario";

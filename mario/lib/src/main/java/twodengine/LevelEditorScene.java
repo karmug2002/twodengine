@@ -4,12 +4,18 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
+
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
 import renderer.Shader;
 
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
+
+//import java.awt.event.KeyEvent;
+import static org.lwjgl.glfw.GLFW.*;
+
 
 public class LevelEditorScene extends Scene
 {
@@ -18,29 +24,30 @@ public class LevelEditorScene extends Scene
 	private float[] vertexArray = {
 			//position			//color
 		
-			0.5f, -0.5f , 0.0f,		1.0f,0.0f,0.0f,1.0f,  //bottom right
-			-0.5f, 0.5f , 0.0f, 	0.0f,1.0f,0.0f,1.0f,  //Top left
-			0.5f,  0.5f , 0.0f,		1.0f,0.0f,1.0f,1.0f,  //Top right
-			-0.5f,-0.5f , 0.0f, 	1.0f,1.0f,0.0f,1.0f,  //Bottom left
+			100.5f,  0.5f , 0.0f,		1.0f,0.0f,0.0f,1.0f,  //bottom right
+			0.5f,	 100.5f , 0.0f, 	0.0f,1.0f,0.0f,1.0f,  //Top left
+			100.5f,  100.5f , 0.0f,		1.0f,0.0f,1.0f,1.0f,  //Top right
+			0.5f, 	  0.5f , 0.0f, 	1.0f,1.0f,0.0f,1.0f,  //Bottom left
 	};
 	
 	//IMPORTANT MUST BE IN COUNTER - CLOCKWISE ORDER
 	private int[] elementArray = {
 		//
 		2,1,0,//top right triangle
-		0,1,3,//bottom left triangle
-		
+		0,1,3,//bottom left triangle	
 	};
 	
 	private int vaoID , vboID , eboID;
 
 	public LevelEditorScene()
 	{
+		
 	}
 
 	@Override
 	public void init()
 	{
+		this.camera = new Camera(new Vector2f());
 		defaultShader = new Shader("assets/shaders/default.glsl");
 		defaultShader.compile();
 		//Generate Vertex array objs,Element array objs,Vertex buffer objs
@@ -80,8 +87,12 @@ public class LevelEditorScene extends Scene
 	public void update(float dt)
 	{
 		//printCurrentFps(dt);
+		
+		controlCamera(dt,200.0f);
 		//Bind Shader Program
 		defaultShader.use();
+		defaultShader.uploadMat4f("uProjection", camera.getProjectionMatrix());
+		defaultShader.uploadMat4f("uView", camera.getViewMatrix());
 		//Bind the VAO
 		glBindVertexArray(vaoID);
 		
@@ -92,7 +103,6 @@ public class LevelEditorScene extends Scene
 		glDrawElements(GL_TRIANGLES, elementArray.length,GL_UNSIGNED_INT,0);
 		
 		//unbind everything
-		
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		
@@ -100,5 +110,26 @@ public class LevelEditorScene extends Scene
 		
 		defaultShader.detach();
 	}
+	
+	public void controlCamera(float dt,float speed)
+	{
+		if(KeyListener.isKeyPressed(GLFW_KEY_UP))
+		{
+			camera.position.y -= dt * speed;
+		}
+		if(KeyListener.isKeyPressed(GLFW_KEY_DOWN))
+		{
+			camera.position.y += dt * speed;
+		}
+		if(KeyListener.isKeyPressed(GLFW_KEY_LEFT))
+		{
+			camera.position.x += dt * speed;
+		}
+		if(KeyListener.isKeyPressed(GLFW_KEY_RIGHT))
+		{
+			camera.position.x -= dt * speed;
+		}
+	}
+	
 
 }
