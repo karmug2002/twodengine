@@ -46,7 +46,7 @@ public class LevelEditorScene extends Scene
 
     public LevelEditorScene() 
     {
-
+		super();//automatically added by the compiler
     }
 
     @Override
@@ -54,7 +54,7 @@ public class LevelEditorScene extends Scene
     {
     	System.out.println("Creating game Object on levelEditor scene");
     	this.testObj = new GameObject("test object");
-    	this.testObj.addComponent(new SpriteRenderer());
+    	this.testObj.addComponent(new SpriteRenderer(null));
     	this.testObj.addComponent(new FontRenderer());
     	this.addGameObjectToScene(this.testObj);
     	

@@ -3,15 +3,18 @@ package twodengine;
 import java.util.ArrayList;
 import java.util.List;
 
+import renderer.Renderer;
+
 public abstract class Scene
 {
+	private Renderer renderer;
 	protected Camera camera;
 	private boolean isRunning = false;
-	protected List<GameObject> gameObjects;
+	protected List<GameObject> gameObjects = new ArrayList<>();
 	
 	public Scene()
 	{
-		this.gameObjects = new ArrayList<>();
+		//this.gameObjects = new ArrayList<>();
 	}
 	
 	public static void printCurrentFps(float dt)
@@ -31,6 +34,7 @@ public abstract class Scene
 		for(GameObject go : gameObjects)
 		{
 			go.start();
+			this.renderer.add(go);
 		}
 		isRunning = true;
 	}
@@ -45,7 +49,13 @@ public abstract class Scene
 		{
 			gameObjects.add(go);
 			go.start();
+			this.renderer.add(go);
 		}
+	}
+	
+	public Camera getCamera()
+	{
+		return this.camera;
 	}
 
 }

@@ -1,25 +1,33 @@
 package components;
 
+import org.joml.Vector4f;
+
 import twodengine.Component;
 
 public class SpriteRenderer extends Component
 {
-	private boolean firstTime = false;
+	private Vector4f color;
 
+	public SpriteRenderer(Vector4f color)
+	{
+		this.color = color;
+	}
+	
 	@Override
 	public void start()
 	{
-		System.out.println("from start in spriteRenderer");
+		
 	}
 	
 	@Override
 	public void update(float dt)
 	{
-		if(!firstTime)
-		{
-			System.out.println("updating in spriteRenderer");
-			firstTime = true;
-		}
+		
+	}
+	
+	public Vector4f getColor()
+	{
+		return this.color;
 	}
 
 }

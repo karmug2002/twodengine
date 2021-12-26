@@ -9,6 +9,9 @@ import util.Time;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
+
+import org.joml.Vector4f;
+
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;;
 
 
@@ -16,7 +19,8 @@ public class Window
 {
 	private int width,height;
 	private String title;
-	private float r,g,b,a;
+	//private float r,g,b,a;
+	private Vector4f clearColor;
 	
 	private static Window window = null;	
 	private long glfwWindow;
@@ -32,10 +36,7 @@ public class Window
 		//this.hieght = 1920;
 		//this.width  = 1080;
 		this.title  = "Mario";
-		this.r = 1;
-		this.g = 1;
-		this.b = 1;
-		this.a = 1;
+		clearColor = new Vector4f(1,1,1,1);
 	}
 	
 	public static void changeScene(int newScene)
@@ -57,29 +58,26 @@ public class Window
 		}
 	}
 	
-	public static Window getWindow()
+	public static Scene getScene()
+	{
+		return get().currentScene;
+	}
+	
+	public static Window get()
 	{
 		if(Window.window == null)
 			Window.window = new Window();
 		return Window.window;
 	}
 	
-	public static void setRGBA(float[] rgba)
+	public static void setRGBA(Vector4f clearColor)
 	{
-		getWindow().r = rgba[0];
-		getWindow().g = rgba[1];
-		getWindow().b = rgba[2];
-		getWindow().a = rgba[3];
+		get().clearColor = clearColor;
 	}
 	
-	public static float[] getRGBA()
+	public static Vector4f getRGBA()
 	{
-		float[] rgba = new float[4];
-		rgba[0] =  getWindow().r;
-		rgba[1] =  getWindow().g;
-		rgba[2] =  getWindow().b;
-		rgba[3] =  getWindow().a;
-		return rgba;
+		return get().clearColor;
 	}
 	
 	public void run()
@@ -159,7 +157,8 @@ public class Window
 			//Poll events
 			glfwPollEvents();
 			
-			glClearColor(r,g,b,a);
+			//glClearColor(clearColor.x,clearColor.y,clearColor.w,clearColor.z);
+			glClearColor(1, 1, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			
 			if(dt>0)
