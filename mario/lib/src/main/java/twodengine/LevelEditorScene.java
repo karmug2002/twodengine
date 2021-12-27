@@ -17,6 +17,8 @@ import util.AssetPool;
 public class LevelEditorScene extends Scene 
 {
 
+	private GameObject mario1;
+	SpriteSheet sprites;
     public LevelEditorScene() 
     {
 		super();//automatically added by the compiler
@@ -28,17 +30,16 @@ public class LevelEditorScene extends Scene
     	loadResources();
     	
     	this.camera = new Camera(new Vector2f());
+    	sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
     	
-    	SpriteSheet sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
-    	
-    	GameObject mario1 = new GameObject("Object 1",new Transform(new Vector2f(100,100),new Vector2f(64,64)));
+    	 mario1 = new GameObject("Object 1",new Transform(new Vector2f(100,100),new Vector2f(64,64)));
     	mario1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
     	
     	GameObject mario2 = new GameObject("Object 1",new Transform(new Vector2f(150,200),new Vector2f(64,64)));
     	mario2.addComponent(new SpriteRenderer(sprites.getSprite(15)));
     	
     	this.addGameObjectToScene(mario1);
-    	this.addGameObjectToScene(mario2);
+    	//this.addGameObjectToScene(mario2);
     }
 
     protected void loadResources()
@@ -49,17 +50,35 @@ public class LevelEditorScene extends Scene
     			new SpriteSheet(texture, 16 , 16 , 26 ,0));
 	}
 
+    private int spriteIndex = 0;
+    private float spriteFlipTime = 0.2f;
+    private float spriteFlipTimeLeft = 0.0f;
+    
+    
 	@Override
     public void update(float dt) 
     {
     	//printCurrentFps(dt);
-		moveCamera(dt, 200.0f);
-		/*
+		//moveCamera(dt, 200.0f);
+		
+		spriteFlipTimeLeft -= dt;
+		if(spriteFlipTimeLeft <= 0)
+		{
+			spriteFlipTimeLeft = spriteFlipTime;
+			spriteIndex++;
+			if(spriteIndex > 4)
+			{
+				spriteIndex = 0;
+			}
+			mario1.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(spriteIndex));
+		}
+		
+		
     	for(GameObject g : this.gameObjects)
         {
     		moveObject(dt, 200.0f, g);
         }
-        */
+        
         for(GameObject g : this.gameObjects)
         {
         	g.update(dt);

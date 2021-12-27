@@ -170,7 +170,7 @@ public class Window
 			glfwPollEvents();
 			
 			//glClearColor(clearColor.x,clearColor.y,clearColor.w,clearColor.z);
-			glClearColor(0, 0, 0, 1);
+			glClearColor(1, 1, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			
 			if(dt>0)
