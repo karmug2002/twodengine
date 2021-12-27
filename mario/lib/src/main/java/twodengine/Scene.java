@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import renderer.Renderer;
+import util.Time;
 
 public abstract class Scene
 {
@@ -11,6 +12,8 @@ public abstract class Scene
 	protected Camera camera;
 	private boolean isRunning = false;
 	protected List<GameObject> gameObjects = new ArrayList<>();
+	private static  int average;
+	private static int total;
 	
 	public Scene()
 	{
@@ -19,10 +22,20 @@ public abstract class Scene
 	
 	public static void printCurrentFps(float dt)
 	{
-		System.out.println(String.format("Current FPS: %.0f", (1.0f/dt)));
+		//System.out.println(String.format("Current FPS: %.0f", (1.0f/dt)));
+		average += (1/dt);
+		total +=1;
+		if(total == 10)
+		{
+			System.out.println(average/total +" "+ average +" " + total);
+			total = 0;
+			average = 0;
+			System.out.println(Time.getTime());
+		}
 	}
 	
 	public abstract void update(float dt);
+	protected abstract void loadResources();
 
 	public void init()
 	{

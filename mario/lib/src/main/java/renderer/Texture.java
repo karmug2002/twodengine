@@ -1,6 +1,9 @@
 package renderer;
 
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
+
+import twodengine.Window;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -14,6 +17,8 @@ public class Texture
     private String filepath;
     private int texID;
 
+    private Vector2f imageHW = new Vector2f();
+    
     public Texture(String filepath) 
     {
         this.filepath = filepath;
@@ -34,9 +39,12 @@ public class Texture
         IntBuffer width = BufferUtils.createIntBuffer(1);
         IntBuffer height = BufferUtils.createIntBuffer(1);
         IntBuffer channels = BufferUtils.createIntBuffer(1);
-        //stbi_set_flip_vertically_on_load(true);
+        stbi_set_flip_vertically_on_load(true);
         ByteBuffer image = stbi_load(filepath, width, height, channels, 0);
-
+        
+        imageHW.x = Window.get().getWindowHW().x/4;
+        imageHW.y = Window.get().getWindowHW().y/4;
+        
         if (image != null) 
         {
             if (channels.get(0) == 3) 
@@ -69,4 +77,10 @@ public class Texture
     public void unbind() {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+    
+    public Vector2f getImageWidthAndHeight()
+    {
+    	return this.imageHW;
+    }
+    
 }

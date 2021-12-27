@@ -20,6 +20,8 @@ import static org.lwjgl.opengl.GL20.glUseProgram;
 import static org.lwjgl.opengl.GL20.*;
 
 
+
+
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.file.Files;
@@ -229,7 +231,13 @@ public class Shader
 		int varLocation = glGetUniformLocation(shaderProgramID, varName);
 		this.use();
 		glUniform1i(varLocation, slot);
-
+	}
+	
+	public void uploadIntArray(String varName,int[] array)
+	{
+		int varLocation = glGetUniformLocation(shaderProgramID, varName);
+		this.use();
+		glUniform1iv(varLocation,array);
 	}
 
 }

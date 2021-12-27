@@ -14,4 +14,11 @@ public class LevelScene extends Scene
 		
 	}
 
+	@Override
+	protected void loadResources()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

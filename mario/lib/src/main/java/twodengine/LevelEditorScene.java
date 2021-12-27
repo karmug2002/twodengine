@@ -9,6 +9,8 @@ import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import components.SpriteRenderer;
+import renderer.Texture;
+import util.AssetPool;
 
 public class LevelEditorScene extends Scene 
 {
@@ -21,41 +23,39 @@ public class LevelEditorScene extends Scene
     @Override
     public void init() 
     {
+    	Texture newTexture = AssetPool.getTexture("assets/images/testImage.jpg");
     	this.camera = new Camera(new Vector2f());
-    	
-    	int xOffset = 10;
-    	int yOffset = 10;
-    	
-    	float totalWidth = (float)(600 - xOffset * 2);
-    	float totalHeight = (float)(300 - yOffset * 2);
-    	float sizeX = totalWidth / 100.0f;
-    	float sizeY = totalHeight / 100.0f;
-    	
-    	for(int x = 0; x < 100; x++)
-    	{
-    		for(int y = 0; y < 100; y++)
-    		{
-    			float xPos = xOffset + (x * sizeX);
-    			float yPos = yOffset + (y * sizeY);
-    			
-    			GameObject go = new GameObject("Obj" +x +"" + y, new Transform(new Vector2f(xPos,yPos) , new Vector2f(sizeX,sizeY)));
-    			go.addComponent(new SpriteRenderer(new Vector4f(xPos / totalWidth,yPos / totalHeight,1,1)));
-    			this.addGameObjectToScene(go);
-    		}
-    	}
+    	GameObject go = new GameObject("Object 1",new Transform(new Vector2f(100,100),new Vector2f(32,32)));
+    	go.addComponent(new SpriteRenderer(newTexture));
+    	this.addGameObjectToScene(go);
+    	loadResources();
     }
 
-    @Override
+    protected void loadResources()
+	{
+    	AssetPool.getShader("assets/shaders/default.glsl");
+    	//AssetPool.getTexture("assets/images/testImage.png");
+	}
+
+	@Override
     public void update(float dt) 
     {
-    	printCurrentFps(dt);
-    	moveCamera(dt, 200.0f);        
+    	//printCurrentFps(dt);
+		//moveCamera(dt, 200.0f);
+		/*
+    	for(GameObject g : this.gameObjects)
+        {
+    		moveObject(dt, 200.0f, g);
+        }
+        */
         for(GameObject g : this.gameObjects)
         {
         	g.update(dt);
         }
         
         this.renderer.render();
+        
+       
     }
     
     public void moveCamera(float dt, float speed) 
@@ -75,6 +75,26 @@ public class LevelEditorScene extends Scene
     	if(KeyListener.isKeyPressed(GLFW_KEY_RIGHT))
     	{
     		camera.position.x -= dt * speed;
+    	}
+    }  
+    
+    public void moveObject(float dt, float speed,GameObject go) 
+    {
+    	if(KeyListener.isKeyPressed(GLFW_KEY_UP))
+    	{
+    		go.transform.position.y += dt * speed;
+    	}
+    	if(KeyListener.isKeyPressed(GLFW_KEY_DOWN))
+    	{
+    		go.transform.position.y -= dt * speed;
+    	}
+    	if(KeyListener.isKeyPressed(GLFW_KEY_LEFT))
+    	{
+    		go.transform.position.x -= dt * speed;
+    	}
+    	if(KeyListener.isKeyPressed(GLFW_KEY_RIGHT))
+    	{
+    		go.transform.position.x += dt * speed;
     	}
     }  
     
