@@ -22,7 +22,7 @@ public class Renderer
 		SpriteRenderer sprite = go.getComponent(SpriteRenderer.class);
 		if(sprite != null)
 		{
-			add(sprite);
+			add(sprite);;
 		}
 	}
 
