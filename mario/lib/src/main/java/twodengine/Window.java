@@ -2,6 +2,7 @@ package twodengine;
 
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
@@ -124,8 +125,7 @@ public class Window
 		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 		
 		// Create the window
-		glfwWindow = glfwCreateWindow(mode.width(),mode.height(),this.title,NULL,NULL);				
-		
+		glfwWindow = glfwCreateWindow(mode.width(),mode.height(),this.title,NULL,NULL);	
 		if(glfwWindow == NULL)
 		{
 			throw new IllegalStateException("Failed to create the GLFW window.");

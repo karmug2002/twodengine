@@ -18,6 +18,8 @@ public class Texture
     private int texID;
 
     private Vector2f imageHW = new Vector2f();
+    private int width;
+    private int height;
     
     public Texture(String filepath) 
     {
@@ -42,11 +44,15 @@ public class Texture
         stbi_set_flip_vertically_on_load(true);
         ByteBuffer image = stbi_load(filepath, width, height, channels, 0);
         
-        imageHW.x = Window.get().getWindowHW().x/4;
-        imageHW.y = Window.get().getWindowHW().y/4;
+        //imageHW.x = (width.get(0) - Window.get().getWindowHW().x)/4;
+        //imageHW.y = (height.get(0) - Window.get().getWindowHW().y)/4;
+        
         
         if (image != null) 
         {
+        	this.width = width.get(0);
+            this.height = height.get(0);
+        	
             if (channels.get(0) == 3) 
             {
                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width.get(0), height.get(0),
@@ -81,6 +87,16 @@ public class Texture
     public Vector2f getImageWidthAndHeight()
     {
     	return this.imageHW;
+    }
+    
+    public int getWidth()
+    {
+    	return this.width;
+    }
+    
+    public int getHeight()
+    {
+    	return this.height;
     }
     
 }

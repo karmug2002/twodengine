@@ -8,7 +8,9 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
+import components.Sprite;
 import components.SpriteRenderer;
+import components.SpriteSheet;
 import renderer.Texture;
 import util.AssetPool;
 
@@ -22,26 +24,36 @@ public class LevelEditorScene extends Scene
 
     @Override
     public void init() 
-    {
-    	Texture newTexture = AssetPool.getTexture("assets/images/testImage.jpg");
-    	this.camera = new Camera(new Vector2f());
-    	GameObject go = new GameObject("Object 1",new Transform(new Vector2f(100,100),new Vector2f(32,32)));
-    	go.addComponent(new SpriteRenderer(newTexture));
-    	this.addGameObjectToScene(go);
+    {    	
     	loadResources();
+    	
+    	this.camera = new Camera(new Vector2f());
+    	
+    	SpriteSheet sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
+    	
+    	GameObject mario1 = new GameObject("Object 1",new Transform(new Vector2f(100,100),new Vector2f(64,64)));
+    	mario1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
+    	
+    	GameObject mario2 = new GameObject("Object 1",new Transform(new Vector2f(150,200),new Vector2f(64,64)));
+    	mario2.addComponent(new SpriteRenderer(sprites.getSprite(15)));
+    	
+    	this.addGameObjectToScene(mario1);
+    	this.addGameObjectToScene(mario2);
     }
 
     protected void loadResources()
 	{
     	AssetPool.getShader("assets/shaders/default.glsl");
-    	//AssetPool.getTexture("assets/images/testImage.png");
+    	Texture texture = AssetPool.getTexture("assets/images/spritesheet.png");
+    	AssetPool.addSpriteSheet("assets/images/spritesheet.png",
+    			new SpriteSheet(texture, 16 , 16 , 26 ,0));
 	}
 
 	@Override
     public void update(float dt) 
     {
     	//printCurrentFps(dt);
-		//moveCamera(dt, 200.0f);
+		moveCamera(dt, 200.0f);
 		/*
     	for(GameObject g : this.gameObjects)
         {

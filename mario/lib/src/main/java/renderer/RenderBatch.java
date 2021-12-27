@@ -221,6 +221,16 @@ public class RenderBatch {
         return this.hasRoom;
     }
     
+    public boolean hasTextureRoom() 
+    {
+        return this.textures.size() < 8;
+    }
+    
+    public boolean hasTexture(Texture tex)
+    {
+    	return this.textures.contains(tex);
+    }
+    
     public void loadVertices()
     {
     	for(int k = 0; k < sprites.length; k++)
