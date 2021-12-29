@@ -2,6 +2,8 @@ package renderer;
 
 import components.SpriteRenderer;
 import twodengine.Window;
+import twodengine.WindowImGui;
+
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import util.AssetPool;

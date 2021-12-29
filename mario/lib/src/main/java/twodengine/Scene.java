@@ -34,6 +34,39 @@ public abstract class Scene
 		}
 	}
 	
+	public static String getCurrentFps(float dt,boolean realTime,int average)
+	{
+		String CurrentFps = "CurrentFps: ";
+		//System.out.println(String.format("Current FPS: %.0f", (1.0f/dt)));
+		
+		if(realTime)
+		{
+			CurrentFps = String.format("Current FPS: %.0f", (1.0f/dt));
+		}
+		else if(total == average)
+		{
+			System.out.println(total);
+			
+			
+				//System.out.println(average/total +" "+ average +" " + total);
+				CurrentFps = CurrentFps+ average/total;
+				//System.out.println(Time.getTime());
+				//System.out.println(String.format("Current FPS: %.0f", (1.0f/dt)));
+
+			
+			total = 0;
+			average = 0;
+		}
+		else
+		{
+			average += (1/dt);
+			total +=1;
+		}
+		
+		return CurrentFps;
+	}
+	
+	
 	public abstract void update(float dt);
 	protected abstract void loadResources();
 
