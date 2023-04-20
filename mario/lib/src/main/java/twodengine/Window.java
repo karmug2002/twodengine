@@ -30,9 +30,9 @@ public class Window {
         this.width = 1920;
         this.height = 1080;
         this.title = "Mario";
-        r = 1;
-        b = 1;
-        g = 1;
+        r = 0;
+        b = 0;
+        g = 0;
         a = 1;
     }
 
@@ -154,6 +154,8 @@ public class Window {
 
             if (dt >= 0) {
                 currentScene.update(dt);
+                if(KeyListener.isKeyPressed(GLFW_KEY_SPACE))
+                	System.out.println("jeoo");
             }
 
             this.imguiLayer.update(dt);

@@ -253,9 +253,9 @@ public class ImGuiLayer {
         
         // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
         ImGui.newFrame();
-        menuBar(dt);
-        Calculator();
-        ImGui.showDemoWindow();
+        //menuBar(dt);
+        //Calculator();
+        //ImGui.showDemoWindow();
         ImGui.render();
 
         endFrame();

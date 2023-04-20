@@ -4,11 +4,15 @@
 package mario;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class LibraryTest {
-    @Test public void testSomeLibraryMethod() {
+     public void testSomeLibraryMethod() {
         Library classUnderTest = new Library();
         assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethod());
     }
+
+	private void assertTrue(String string, boolean someLibraryMethod) {
+		// TODO Auto-generated method stub
+		
+	}
 }
